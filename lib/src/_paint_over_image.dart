@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -571,7 +572,11 @@ class ImagePainterState extends State<ImagePainter> {
       width: widget.width ?? double.maxFinite,
       child: Column(
         children: [
-          if (widget.controlsAtTop && widget.showControls) _buildControls(),
+          if (widget.controlsAtTop && widget.showControls)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: _buildControls(),
+            ),
           Expanded(
             child: FittedBox(
               alignment: FractionalOffset.center,
@@ -602,7 +607,11 @@ class ImagePainterState extends State<ImagePainter> {
               ),
             ),
           ),
-          if (!widget.controlsAtTop && widget.showControls) _buildControls(),
+          if (!widget.controlsAtTop && widget.showControls)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+              child: _buildControls(),
+            ),
           SizedBox(height: MediaQuery.of(context).padding.bottom)
         ],
       ),
@@ -880,7 +889,10 @@ class ImagePainterState extends State<ImagePainter> {
   Widget _buildControls() {
     return Container(
       padding: const EdgeInsets.all(4),
-      color: widget.controlsBackgroundColor ?? Colors.grey[200],
+      decoration: BoxDecoration(
+          color: widget.controlsBackgroundColor ?? Color(0xFFF2F2F2),
+          borderRadius: BorderRadius.circular(8)),
+      //  Colors.grey[200],
       child: Row(
         children: [
           AnimatedBuilder(
