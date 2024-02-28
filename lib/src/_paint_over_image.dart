@@ -917,6 +917,7 @@ class ImagePainterState extends State<ImagePainter> {
           borderRadius: BorderRadius.circular(8)),
       //  Colors.grey[200],
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // AnimatedBuilder(
           //   animation: _controller,
@@ -988,7 +989,7 @@ class ImagePainterState extends State<ImagePainter> {
               }
             },
           ),
-          const Spacer(),
+          // const Spacer(),
           IconButton(
             tooltip: textDelegate.undo,
             icon: widget.undoIcon ?? Icon(Icons.reply, color: Colors.grey[700]),
