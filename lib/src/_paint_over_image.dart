@@ -53,6 +53,7 @@ class ImagePainter extends StatefulWidget {
     this.optionColor,
     this.onUndo,
     this.onClear,
+    this.additionWidgetOnSide,
   }) : super(key: key);
 
   ///Constructor for loading image from network url.
@@ -68,6 +69,7 @@ class ImagePainter extends StatefulWidget {
     Widget? undoIcon,
     Widget? clearAllIcon,
     Widget? colorIcon,
+    Widget? additionWidgetOnSide,
     PaintMode? initialPaintMode,
     double? initialStrokeWidth,
     Color? initialColor,
@@ -111,6 +113,7 @@ class ImagePainter extends StatefulWidget {
       optionColor: optionColor,
       onUndo: onUndo,
       onClear: onClear,
+      additionWidgetOnSide: additionWidgetOnSide,
     );
   }
 
@@ -127,6 +130,7 @@ class ImagePainter extends StatefulWidget {
     Widget? undoIcon,
     Widget? clearAllIcon,
     Widget? colorIcon,
+    Widget? additionWidgetOnSide,
     PaintMode? initialPaintMode,
     double? initialStrokeWidth,
     Color? initialColor,
@@ -170,6 +174,7 @@ class ImagePainter extends StatefulWidget {
       optionColor: optionColor,
       onUndo: onUndo,
       onClear: onClear,
+      additionWidgetOnSide: additionWidgetOnSide,
     );
   }
 
@@ -185,6 +190,7 @@ class ImagePainter extends StatefulWidget {
     Widget? brushIcon,
     Widget? undoIcon,
     Widget? clearAllIcon,
+    Widget? additionWidgetOnSide,
     Widget? colorIcon,
     PaintMode? initialPaintMode,
     double? initialStrokeWidth,
@@ -229,6 +235,7 @@ class ImagePainter extends StatefulWidget {
       optionColor: optionColor,
       onUndo: onUndo,
       onClear: onClear,
+      additionWidgetOnSide: additionWidgetOnSide,
     );
   }
 
@@ -245,6 +252,7 @@ class ImagePainter extends StatefulWidget {
     Widget? undoIcon,
     Widget? clearAllIcon,
     Widget? colorIcon,
+    Widget? additionWidgetOnSide,
     PaintMode? initialPaintMode,
     double? initialStrokeWidth,
     Color? initialColor,
@@ -288,6 +296,7 @@ class ImagePainter extends StatefulWidget {
       optionColor: optionColor,
       onUndo: onUndo,
       onClear: onClear,
+      additionWidgetOnSide: additionWidgetOnSide,
     );
   }
 
@@ -314,6 +323,7 @@ class ImagePainter extends StatefulWidget {
     Color? optionColor,
     VoidCallback? onUndo,
     VoidCallback? onClear,
+    Widget? additionWidgetOnSide,
   }) {
     return ImagePainter._(
       key: key,
@@ -339,6 +349,7 @@ class ImagePainter extends StatefulWidget {
       optionColor: optionColor,
       onUndo: onUndo,
       onClear: onClear,
+      additionWidgetOnSide: additionWidgetOnSide,
     );
   }
 
@@ -387,6 +398,9 @@ class ImagePainter extends StatefulWidget {
 
   ///Widget for clearing all actions on control bar.
   final Widget? clearAllIcon;
+
+  ///Additional Widget .
+  final Widget? additionWidgetOnSide;
 
   ///Define where the controls is located.
   ///`true` represents top.
@@ -610,7 +624,16 @@ class ImagePainterState extends State<ImagePainter> {
           if (!widget.controlsAtTop && widget.showControls)
             Padding(
               padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-              child: _buildControls(),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: _buildControls()),
+                  Visibility(
+                      visible: widget.additionWidgetOnSide != null,
+                      child: widget.additionWidgetOnSide ??
+                          const SizedBox.shrink())
+                ],
+              ),
             ),
           SizedBox(height: MediaQuery.of(context).padding.bottom)
         ],
