@@ -588,8 +588,20 @@ class ImagePainterState extends State<ImagePainter> {
         children: [
           if (widget.controlsAtTop && widget.showControls)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: _buildControls(),
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.brushIcon != null) ...[
+                    widget.brushIcon!,
+                  ],
+                  Expanded(child: _buildControls()),
+                  Visibility(
+                      visible: widget.additionWidgetOnSide != null,
+                      child: widget.additionWidgetOnSide ??
+                          const SizedBox.shrink())
+                ],
+              ),
             ),
           Expanded(
             child: FittedBox(
@@ -627,6 +639,9 @@ class ImagePainterState extends State<ImagePainter> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (widget.brushIcon != null) ...[
+                    widget.brushIcon!,
+                  ],
                   Expanded(child: _buildControls()),
                   Visibility(
                       visible: widget.additionWidgetOnSide != null,
@@ -911,10 +926,11 @@ class ImagePainterState extends State<ImagePainter> {
 
   Widget _buildControls() {
     return Container(
+      height: kBottomNavigationBarHeight,
       padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-          color: widget.controlsBackgroundColor ?? Color(0xFFF2F2F2),
-          borderRadius: BorderRadius.circular(8)),
+      // decoration: BoxDecoration(
+      //     color: widget.controlsBackgroundColor ?? Color(0xFFF2F2F2),
+      //     borderRadius: BorderRadius.circular(8)),
       //  Colors.grey[200],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
