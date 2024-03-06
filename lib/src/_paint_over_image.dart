@@ -938,22 +938,38 @@ class ImagePainterState extends State<ImagePainter> {
           AnimatedBuilder(
             animation: _controller,
             builder: (_, __) {
-              return PopupMenuButton(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                tooltip: textDelegate.changeColor,
-                icon: widget.colorIcon ??
-                    Container(
-                      padding: const EdgeInsets.all(2.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.grey),
-                        color: _controller.color,
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 24,
+                    width: 24,
+                    child: PopupMenuButton(
+                      padding: const EdgeInsets.all(0),
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      tooltip: textDelegate.changeColor,
+                      icon: widget.colorIcon ??
+                          Container(
+                            padding: const EdgeInsets.all(2.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.grey),
+                              color: _controller.color,
+                            ),
+                          ),
+                      itemBuilder: (_) => [_showColorPicker()],
                     ),
-                itemBuilder: (_) => [_showColorPicker()],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Color",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  )
+                ],
               );
             },
           ),
@@ -990,22 +1006,43 @@ class ImagePainterState extends State<ImagePainter> {
             },
           ),
           // const Spacer(),
-          IconButton(
-            tooltip: textDelegate.undo,
-            icon: widget.undoIcon ?? Icon(Icons.reply, color: Colors.grey[700]),
-            onPressed: () {
+          InkWell(
+            onTap: () {
               widget.onUndo?.call();
               _controller.undo();
             },
+            child: widget.undoIcon ??
+                IconButton(
+                  tooltip: textDelegate.undo,
+                  icon: Icon(Icons.reply, color: Colors.grey[700]),
+                  onPressed: () {
+                    widget.onUndo?.call();
+                    _controller.undo();
+                  },
+                ),
           ),
-          IconButton(
-            tooltip: textDelegate.clearAllProgress,
-            icon: widget.clearAllIcon ??
-                Icon(Icons.clear, color: Colors.grey[700]),
-            onPressed: () {
+          InkWell(
+            onTap: () {
               widget.onClear?.call();
               _controller.clear();
             },
+            child: widget.clearAllIcon ??
+                IconButton(
+                  tooltip: textDelegate.clearAllProgress,
+                  icon: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.clear, color: Colors.grey[700]),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    widget.onClear?.call();
+                    _controller.clear();
+                  },
+                ),
           ),
         ],
       ),
