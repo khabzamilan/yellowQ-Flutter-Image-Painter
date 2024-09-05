@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -19,7 +18,7 @@ import 'widgets/_text_dialog.dart';
 export '_image_painter.dart';
 
 ///[ImagePainter] widget.
-@immutable
+
 class ImagePainter extends StatefulWidget {
   const ImagePainter._({
     Key? key,
@@ -592,9 +591,9 @@ class ImagePainterState extends State<ImagePainter> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (widget.brushIcon != null) ...[
-                    widget.brushIcon!,
-                  ],
+                  // if (widget.brushIcon != null) ...[
+                  //   widget.brushIcon!,
+                  // ],
                   Expanded(child: _buildControls()),
                   Visibility(
                       visible: widget.additionWidgetOnSide != null,
@@ -928,10 +927,6 @@ class ImagePainterState extends State<ImagePainter> {
     return Container(
       height: kBottomNavigationBarHeight,
       padding: const EdgeInsets.all(4),
-      // decoration: BoxDecoration(
-      //     color: widget.controlsBackgroundColor ?? Color(0xFFF2F2F2),
-      //     borderRadius: BorderRadius.circular(8)),
-      //  Colors.grey[200],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -951,6 +946,9 @@ class ImagePainterState extends State<ImagePainter> {
           //     );
           //   },
           // ),
+          if (widget.brushIcon != null) ...[
+            widget.brushIcon!,
+          ],
           AnimatedBuilder(
             animation: _controller,
             builder: (_, __) {
@@ -983,7 +981,10 @@ class ImagePainterState extends State<ImagePainter> {
                   ),
                   Text(
                     "Color",
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 12),
                   )
                 ],
               );

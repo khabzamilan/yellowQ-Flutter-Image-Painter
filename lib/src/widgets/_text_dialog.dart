@@ -49,7 +49,7 @@ class TextDialog extends StatelessWidget {
             autofocus: true,
             style: TextStyle(
               fontSize: fontSize,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               color: color,
             ),
             textAlign: TextAlign.center,
@@ -65,7 +65,7 @@ class TextDialog extends StatelessWidget {
                 textDelegate.done,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               onPressed: onFinished,
